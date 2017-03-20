@@ -112,7 +112,7 @@
     <body>
         <div class="container">
 
-            <h1 class="text-center">Mnemonic Code Converter</h1>
+            <h1 class="text-center">Particl Wallet Generator</h1>
             <hr>
             <div class="row">
                 <div class="col-md-12">
@@ -140,10 +140,10 @@
                                             <option value="6">6</option>
                                             <option value="9">9</option>
                                             <option value="12">12</option>
-                                            <option value="15" selected>15</option>
+                                            <option value="15">15</option>
                                             <option value="18">18</option>
                                             <option value="21">21</option>
-                                            <option value="24">24</option>
+                                            <option value="24" selected>24</option>
                                         </select>
                                         <span data-translate>words</span>
                                     </div>
@@ -244,7 +244,7 @@
                                 <textarea id="passphrase" class="passphrase form-control"></textarea>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" style="display:none">
                             <label for="seed" class="col-sm-2 control-label" data-translate>BIP39 Seed</label>
                             <div class="col-sm-10">
                                 <textarea id="seed" class="seed form-control" readonly="readonly" data-show-qr></textarea>
@@ -258,7 +258,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" style="display:none">
                             <label for="root-key" class="col-sm-2 control-label" data-translate>BIP32 Root Key</label>
                             <div class="col-sm-10">
                                 <textarea id="root-key" class="root-key form-control" data-show-qr></textarea>
@@ -277,73 +277,74 @@
                         <li id="bip44-tab" class="active">
                             <a href="#bip44" role="tab" data-toggle="tab">BIP44</a>
                         </li>
-                        <li id="bip32-tab">
+                        <!-- <li id="bip32-tab">
                             <a href="#bip32" role="tab" data-toggle="tab">BIP32</a>
-                        </li>
+                        </li> -->
                     </ul>
                     <div class="derivation-type tab-content">
+
                         <div id="bip44" class="tab-pane active">
                             <form class="form-horizontal" role="form">
                                 <br>
                                 <div class="col-sm-2"></div>
-                                <div class="col-sm-10">
+                                <div class="col-sm-10 hidden">
                                     <p data-translate-html>
                                         For more info see the
                                         <a href="https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki" target="_blank">BIP44 spec</a>.
                                     </p>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group hidden">
                                     <label for="purpose" class="col-sm-2 control-label">
                                         <a href="https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki#purpose" target="_blank" data-translate>Purpose</a>
                                     </label>
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-10 hidden">
                                         <input id="purpose" type="text" class="purpose form-control" value="44">
                                     </div>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group hidden">
                                     <label for="coin" class="col-sm-2 control-label">
                                         <a href="https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki#registered-coin-types" target="_blank" data-translate>Coin</a>
                                     </label>
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-10 hidden">
                                         <input id="coin" type="text" class="coin form-control" value="0">
                                     </div>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group hidden">
                                     <label for="account" class="col-sm-2 control-label">
                                         <a href="https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki#account" target="_blank" data-translate>Account</a>
                                     </label>
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-10 hidden">
                                         <input id="account" type="text" class="account form-control" value="0">
                                     </div>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group hidden">
                                     <label for="change" class="col-sm-2 control-label">
                                         <a href="https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki#change" target="_blank" data-translate>External / Internal</a>
                                     </label>
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-10 hidden">
                                         <input id="change" type="text" class="change form-control" value="0">
                                     </div>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group hidden">
                                     <label class="col-sm-2 control-label">
                                     </label>
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-10 hidden">
                                         <p data-translate>The account extended keys can be used for importing to most BIP44 compatible wallets, such as mycelium or electrum.</p>
                                     </div>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group hidden">
                                     <label for="account-xprv" class="col-sm-2 control-label">
                                         <span data-translate>Account Extended Private Key</span>
                                     </label>
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-10 hidden">
                                         <textarea id="account-xprv" type="text" class="account-xprv form-control" readonly data-show-qr></textarea>
                                     </div>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group hidden">
                                     <label for="account-xpub" class="col-sm-2 control-label">
                                         <span data-translate>Account Extended Public Key</span>
                                     </label>
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-10 hidden">
                                         <textarea id="account-xpub" type="text" class="account-xpub form-control" readonly data-show-qr></textarea>
                                     </div>
                                 </div>
@@ -357,11 +358,12 @@
                                 <div class="form-group">
                                     <label for="bip44-path" class="col-sm-2 control-label" data-translate>BIP32 Derivation Path</label>
                                     <div class="col-sm-10">
-                                        <input id="bip44-path" type="text" class="path form-control" value="m/44'/0'/0'/0" readonly="readonly">
+                                        <input id="bip44-path" type="text" class="path form-control" value="m/44'/44'/0'/0" readonly="readonly">
                                     </div>
                                 </div>
                             </form>
-                        </div>
+                        </div> 
+
                         <div id="bip32" class="tab-pane">
                             <form class="form-horizontal" role="form">
                                 <br>
@@ -435,7 +437,7 @@
                         </div>
                     </div>
                     <form class="form-horizontal" role="form">
-                        <div class="form-group">
+                        <div class="form-group hidden">
                             <label for="extended-priv-key" class="col-sm-2 control-label" data-translate>BIP32 Extended Private Key</label>
                             <div class="col-sm-10">
                                 <textarea id="extended-priv-key" class="extended-priv-key form-control" readonly="readonly" data-show-qr></textarea>
@@ -453,7 +455,7 @@
 
             <hr>
 
-            <div class="row">
+            <div class="row hidden">
                 <div class="col-md-12">
                     <h2>Derived Addresses</h2>
                     <p data-translate>Note these addreses are derived from the BIP32 Extended Key</p>
@@ -494,11 +496,11 @@
                     </table>
                 </div>
             </div>
-            <span data-translate>Show more rows</span>:
-            <input type="number" class="rows-to-add" value="20">
-            <button class="more" data-translate>Show</button>
-
-            <hr>
+	    <div class="hidden">
+            	<span data-translate>Show more rows</span>:
+           	<input type="number" class="rows-to-add" value="20">
+            	<button class="more" data-translate>Show</button>
+	    </div>
 
             <div class="row">
                 <div class="col-md-12">
@@ -513,7 +515,7 @@
                         Read more at the
                         <a href="https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki" target="_blank">official BIP32 spec</a>
                     </p>
-                    <p data-translate-html>
+                    <p data-translate-html class="hidden">
                         See the demo at
                         <a href="http://bip32.org/" target="_blank">bip32.org</a>
                     </p>
@@ -522,8 +524,8 @@
                         Read more at the
                         <a href="https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki" target="_blank">official BIP44 spec</a>
                     </p>
-                    <h3 data-translate>Private Keys</h3>
-                    <p>
+                    <h3 data-translate class="hidden">Private Keys</h3>
+                    <p class="hidden">
                         <span data-translate-html>
                             Use private keys at
                             <a href="https://web.archive.org/web/20150707020924/https://brainwallet.org/" target="_blank">brainwallet.org</a>.
@@ -565,7 +567,7 @@
                     </p>
                     <h3 data-translate>License</h3>
                     <p>
-                    <span data-translate-html>Please refer to <a href="https://github.com/iancoleman/bip39/blob/master/LICENSE" target="_blank">the software license</a> for more detail.
+                    <span data-translate-html>Please refer to <a href="https://github.com/particl/bip39-wallet/blob/master/LICENSE" target="_blank">the software license</a> for more detail.
                     </span>
                     </p>
                     <p data-translate>The software is provided "as is", without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose and noninfringement. In no event shall the authors or copyright holders be liable for any claim, damages or other liability, whether in an action of contract, tort or otherwise, arising from, out of or in connection with the software or the use or other dealings in the software.</p>
@@ -593,7 +595,7 @@
                     <p>
                     <span data-translate>Alternatively, download the file from the repository</span>
                     -
-                    <a href="https://github.com/iancoleman/bip39">https://github.com/iancoleman/bip39</a>
+                    <a href="https://github.com/particl/bip39-wallet/">https://github.com/particl/bip39-wallet/</a>
                     </p>
 
                 </div>
@@ -609,8 +611,8 @@
                     <p>
                         <span data-translate>Get the source code from the repository</span>
                         -
-                        <a href="https://github.com/iancoleman/bip39" target="_blank">
-                            https://github.com/iancoleman/bip39
+                        <a href="https://github.com/particl/bip39-wallet/" target="_blank">
+                            https://github.com/particl/bip39-wallet/
                         </a>
                     </p>
 
@@ -17884,6 +17886,16 @@ bitcoin.networks.clam = {
   },
   pubKeyHash: 0x89,
   wif: 0x85,
+};
+
+bitcoin.networks.particl = {
+  bip32: {
+    public: 0x696e82d1,
+    private: 0x8f1daeb8
+  },
+  pubKeyHash: 0x38,
+  scriptHash: 0x3C,
+  wif: 0x6C,
 };
 
 bitcoin.networks.dash = {
@@ -41673,13 +41685,13 @@ window.Entropy = new (function() {
     var seed = null;
     var bip32RootKey = null;
     var bip32ExtendedKey = null;
-    var network = bitcoin.networks.bitcoin;
+    var network = bitcoin.networks.particl;
     var addressRowTemplate = $("#address-row-template");
 
-    var showIndex = true;
-    var showAddress = true;
-    var showPubKey = true;
-    var showPrivKey = true;
+    var showIndex = false;
+    var showAddress = false;
+    var showPubKey = false;
+    var showPrivKey = false;
     var showQr = false;
 
     var entropyChangeTimeoutEvent = null;
@@ -42739,103 +42751,12 @@ window.Entropy = new (function() {
 
     var networks = [
         {
-            name: "Bitcoin",
+            name: "Particl",
             onSelect: function() {
-                network = bitcoin.networks.bitcoin;
-                DOM.bip44coin.val(0);
+                network = bitcoin.networks.particl;
+                DOM.bip44coin.val(44);
             },
-        },
-        {
-            name: "Bitcoin Testnet",
-            onSelect: function() {
-                network = bitcoin.networks.testnet;
-                DOM.bip44coin.val(1);
-            },
-        },
-        {
-            name: "CLAM",
-            onSelect: function() {
-                network = bitcoin.networks.clam;
-                DOM.bip44coin.val(23);
-            },
-        },
-        {
-            name: "Dogecoin",
-            onSelect: function() {
-                network = bitcoin.networks.dogecoin;
-                DOM.bip44coin.val(3);
-            },
-        },
-        {
-            name: "DASH",
-            onSelect: function() {
-                network = bitcoin.networks.dash;
-                DOM.bip44coin.val(5);
-            },
-        },
-        {
-            name: "Ethereum",
-            onSelect: function() {
-                network = bitcoin.networks.bitcoin;
-                DOM.bip44coin.val(60);
-            },
-        },
-        {
-            name: "Jumbucks",
-            onSelect: function() {
-                network = bitcoin.networks.jumbucks;
-                DOM.bip44coin.val(26);
-            },
-        },
-        {
-            name: "Litecoin",
-            onSelect: function() {
-                network = bitcoin.networks.litecoin;
-                DOM.bip44coin.val(2);
-            },
-        },
-        {
-            name: "Namecoin",
-            onSelect: function() {
-                network = bitcoin.networks.namecoin;
-                DOM.bip44coin.val(7);
-            },
-        },
-        {
-            name: "Peercoin",
-            onSelect: function() {
-                network = bitcoin.networks.peercoin;
-                DOM.bip44coin.val(6);
-            },
-        },
-        {
-            name: "ShadowCash",
-            onSelect: function() {
-                network = bitcoin.networks.shadow;
-                DOM.bip44coin.val(35);
-            },
-        },
-        {
-            name: "ShadowCash Testnet",
-            onSelect: function() {
-                network = bitcoin.networks.shadowtn;
-                DOM.bip44coin.val(1);
-            },
-        },
-        {
-            name: "Viacoin",
-            onSelect: function() {
-                network = bitcoin.networks.viacoin;
-                DOM.bip44coin.val(14);
-            },
-        },
-        {
-            name: "Viacoin Testnet",
-            onSelect: function() {
-                network = bitcoin.networks.viacointestnet;
-                DOM.bip44coin.val(1);
-            },
-        },
+        },        
     ]
 
     var clients = [
