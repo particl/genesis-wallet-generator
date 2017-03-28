@@ -62,7 +62,16 @@
             }
             .monospace {
                 font-family: monospace;
+		color: #000;		
             }
+            .monospace .address {
+                font-family: monospace;
+                color: red;
+            }
+	    .extended-pub-key {
+                color: red;
+            }
+
             .entropy-container .filtered,
             .entropy-container .binary {
                 word-wrap: break-word;
@@ -455,7 +464,7 @@
 
             <hr>
 
-            <div class="row hidden">
+            <div class="row">
                 <div class="col-md-12">
                     <h2>Derived Addresses</h2>
                     <p data-translate>Note these addreses are derived from the BIP32 Extended Key</p>
@@ -474,23 +483,19 @@
                                 </div>
                             </th>
                             <th>
-                                <div class="input-group">
+                                <div class="input-group hidden">
                                     <span data-translate>Public Key</span>&nbsp;&nbsp;
                                     <button class="public-key-toggle" data-translate>Toggle</button>
                                 </div>
                             </th>
                             <th>
-                                <div class="input-group">
+                                <div class="input-group hidden">
                                     <span data-translate>Private Key</span>&nbsp;&nbsp;
                                     <button class="private-key-toggle" data-translate>Toggle</button>
                                 </div>
                             </th>
                         </thead>
                         <tbody class="addresses monospace">
-                            <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                            <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                            <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                            <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
                             <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
                         </tbody>
                     </table>
@@ -41688,8 +41693,8 @@ window.Entropy = new (function() {
     var network = bitcoin.networks.particl;
     var addressRowTemplate = $("#address-row-template");
 
-    var showIndex = false;
-    var showAddress = false;
+    var showIndex = true;
+    var showAddress = true;
     var showPubKey = false;
     var showPrivKey = false;
     var showQr = false;
@@ -42209,7 +42214,7 @@ window.Entropy = new (function() {
         DOM.extendedPubKey.val(extendedPubKey);
         // Display the addresses and privkeys
         clearAddressesList();
-        displayAddresses(0, 20);
+        displayAddresses(0, 1); //dasource
     }
 
     function displayAddresses(start, total) {

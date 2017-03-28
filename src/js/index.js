@@ -9,8 +9,8 @@
     var network = bitcoin.networks.particl;
     var addressRowTemplate = $("#address-row-template");
 
-    var showIndex = false;
-    var showAddress = false;
+    var showIndex = true;
+    var showAddress = true;
     var showPubKey = false;
     var showPrivKey = false;
     var showQr = false;
@@ -530,7 +530,7 @@
         DOM.extendedPubKey.val(extendedPubKey);
         // Display the addresses and privkeys
         clearAddressesList();
-        displayAddresses(0, 20);
+        displayAddresses(0, 1); //dasource
     }
 
     function displayAddresses(start, total) {
