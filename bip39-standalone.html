@@ -2,7 +2,7 @@
 <html>
     <head lang="en">
         <meta charset="utf-8" />
-        <title>BIP39 - Mnemonic Code</title>
+        <title>Particl - Offline Genesis Wallet Generator</title>
         <style>/*!
  * Bootstrap v3.2.0 (http://getbootstrap.com)
  * Copyright 2011-2014 Twitter, Inc.
@@ -21,6 +21,17 @@
             .form-control[readonly] {
                 cursor: text;
             }
+
+	    .phrase {
+		border: 1px solid RED;
+		color: red;		
+	    }
+
+            .passphrase {
+                border: 1px solid RED;
+                color: red;
+            }
+
             .feedback-container {
                 position: fixed;
                 top: 0;
@@ -66,10 +77,10 @@
             }
             .monospace .address {
                 font-family: monospace;
-                color: red;
+                color: green;
             }
 	    .extended-pub-key {
-                color: red;
+                color: green;
             }
 
             .entropy-container .filtered,
@@ -121,16 +132,16 @@
     <body>
         <div class="container">
 
-            <h1 class="text-center">Particl Wallet Generator</h1>
+            <h1 class="text-center">Particl Offline Genesis Wallet Generator</h1>
             <hr>
             <div class="row">
                 <div class="col-md-12">
-                    <h2>Mnemonic</h2>
+                    <h2>Wallet Recovery Phrase</h2>
                     <form class="form-horizontal" role="form">
                         <div class="form-group">
                             <div class="col-sm-2"></div>
                             <div class="col-sm-10">
-                                <p data-translate>You can enter an existing BIP39 mnemonic, or generate a new random one. Typing your own twelve words will probably not work how you expect, since the words require a particular structure (the last word is a checksum).</p>
+                                <p data-translate>You can enter an existing Wallet Recovery Phrase (BIP39 Mnemonic), or generate a new random one. Typing your own twenty-four words will probably not work how you expect, since the words require a particular structure (the last word is a checksum).</p>
                                 <p data-translate-html>
                                     For more info see the
                                     <a href="https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki" target="_blank">BIP39 spec</a>.
@@ -142,7 +153,7 @@
                             <div class="col-sm-10">
                                 <div class="form-inline">
                                     <div class="input-group-inline">
-                                        <span data-translate>Generate a random mnemonic, or enter your own below</span>:
+                                        <span data-translate>Generate a Wallet Recovery Phrase, or enter your own below</span>:
                                         <button class="btn generate">Generate</button>
                                         <select id="strength" class="strength form-control">
                                             <option value="3">3</option>
@@ -242,13 +253,13 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="phrase" class="col-sm-2 control-label" data-translate>BIP39 Mnemonic</label>
+                            <label for="phrase" class="col-sm-2 control-label" data-translate>Recovery Phrase (BIP39)</label>
                             <div class="col-sm-10">
                                 <textarea id="phrase" class="phrase form-control" data-show-qr></textarea>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="passphrase" class="col-sm-2 control-label" data-translate>BIP39 Passphrase (optional)</label>
+                            <label for="passphrase" class="col-sm-2 control-label" data-translate>Passphrase (optional)</label>
                             <div class="col-sm-10">
                                 <textarea id="passphrase" class="passphrase form-control"></textarea>
                             </div>
@@ -365,7 +376,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="bip44-path" class="col-sm-2 control-label" data-translate>BIP32 Derivation Path</label>
+                                    <label for="bip44-path" class="col-sm-2 control-label" data-translate>Derivation Path (BIP32)</label>
                                     <div class="col-sm-10">
                                         <input id="bip44-path" type="text" class="path form-control" value="" readonly="readonly">
                                     </div>
@@ -453,7 +464,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="extended-pub-key" class="col-sm-2 control-label" data-translate>BIP32 Extended Public Key</label>
+                            <label for="extended-pub-key" class="col-sm-2 control-label" data-translate>Extended Public Key (BIP32)</label>
                             <div class="col-sm-10">
                                 <textarea id="extended-pub-key" class="extended-pub-key form-control" readonly="readonly" data-show-qr></textarea>
                             </div>
