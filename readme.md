@@ -1,4 +1,4 @@
-# Particl Wallet Generator BIP39 Tool
+# Particl Offline Wallet Generator BIP39 Tool
 
 A tool for converting BIP39 mnemonic phrases to addresses and private keys.
 
@@ -9,14 +9,12 @@ Download `bip39-standalone.html`
 
 Open the file in a browser by double clicking it.
 
-This can be compiled from source using the command `python compile.py`
 
 ## Usage
 
 Enter your BIP39 phrase into the 'BIP39 Phrase' field, or press
 'Generate Random Phrase'
 
-The BIP32 keys can be used at [bip32.org](https://bip32.org) if desired.
 
 ## Donations
 
