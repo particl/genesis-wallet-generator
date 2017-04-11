@@ -55,12 +55,24 @@
                 cursor: text;
             }
 
-            .phrase, .passphrase {
-                border: 1px solid #02e8b0; background: #e9fbf7;
-                /*color: #02e8b0;*/ text-align: center;
-                padding: 1.5rem 3rem;
+            .phrase {
+                word-break: keep-all;
+                background: #f8eae8 repeating-linear-gradient(45deg, #f54b00, #f54b00 10px, #dd4400 10px, #dd4400 20px);
+                border: 1px solid #f54b00;
             }
-            .phrase { word-break: keep-all; }
+            .passphrase {
+                background: #e5f7f3 repeating-linear-gradient(45deg, #02e8b0, #02e8b0 10px, #00d7a3 10px, #00d7a3 20px);
+                border: 1px solid #02e8b0;
+            }
+            .phrase, .passphrase {
+                text-align: center; word-spacing: 5px;
+                padding: 1.5rem 3rem;
+                background-size: 1.2rem 100%; background-repeat: no-repeat;
+            }
+            .control-label > p {
+                font-size: 1.3rem; font-weight: normal;
+                margin: 0.3rem 0 0;
+            }
 
             .feedback-container {
                 position: fixed;
@@ -183,8 +195,8 @@
                     <h2>Wallet Recovery Phrase</h2>
                     <form class="form-horizontal" role="form">
                         <div class="form-group">
-                            <div class="col-sm-2"></div>
-                            <div class="col-sm-10">
+                            <div class="col-sm-3"></div>
+                            <div class="col-sm-9">
                                 <p data-translate>You can enter an existing Wallet Recovery Phrase (BIP39 Mnemonic), or generate a new random one. Typing your own twenty-four words will probably not work how you expect, since the words require a particular structure (the last word is a checksum).</p>
                                 <p data-translate-html>
                                     For more info see the
@@ -193,8 +205,8 @@
                             </div>
                         </div>
                         <div class="form-group generate-container">
-                            <label class="col-sm-2 control-label"></label>
-                            <div class="col-sm-10">
+                            <label class="col-sm-3 control-label"></label>
+                            <div class="col-sm-9">
                                 <div class="highlight form-inline">
                                     <div class="input-group-inline">
                                         <p>
@@ -278,8 +290,8 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-sm-2"></div>
-                            <div class="col-sm-10 checkbox">
+                            <div class="col-sm-3"></div>
+                            <div class="col-sm-9 checkbox">
                                 <label>
                                     <input type="checkbox" class="use-entropy">
                                     <span data-translate>Supply my own source of entropy</span> (for advanced users only!)
@@ -287,8 +299,8 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label" data-translate>Mnemonic Language</label>
-                            <div class="col-sm-10 languages">
+                            <label class="col-sm-3 control-label" data-translate>Mnemonic Language</label>
+                            <div class="col-sm-9 languages">
                                 <div class="form-control no-border">
                                     <a href="#english">English</a>
                                     <a href="#japanese" title="Japanese">日本語</a>
@@ -301,34 +313,44 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="phrase" class="col-sm-2 control-label" data-translate>Recovery Phrase (BIP39)</label>
-                            <div class="col-sm-10">
+                            <label for="phrase" class="col-sm-3 control-label" data-translate>
+                                Recovery Phrase (BIP39)
+                                <p>
+                                    These words are used to recover your wallet. Keep them safe!
+                                </p>
+                            </label>
+                            <div class="col-sm-9">
                                 <textarea id="phrase" class="phrase form-control" data-show-qr></textarea>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="passphrase" class="col-sm-2 control-label" data-translate>Passphrase (optional)</label>
-                            <div class="col-sm-10">
+                            <label for="passphrase" class="col-sm-3 control-label" data-translate>
+                                Passphrase (optional)
+                                <p>
+                                    Anyone knowing this passphrase can steal your coins!
+                                </p>
+                            </label>
+                            <div class="col-sm-9">
                                 <textarea id="passphrase" class="passphrase form-control"></textarea>
                             </div>
                         </div>
                         <div class="form-group" style="display:none">
-                            <label for="seed" class="col-sm-2 control-label" data-translate>BIP39 Seed</label>
-                            <div class="col-sm-10">
+                            <label for="seed" class="col-sm-3 control-label" data-translate>BIP39 Seed</label>
+                            <div class="col-sm-9">
                                 <textarea id="seed" class="seed form-control" readonly="readonly" data-show-qr></textarea>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="network-phrase" class="col-sm-2 control-label" data-translate>Coin</label>
-                            <div class="col-sm-10">
+                            <label for="network-phrase" class="col-sm-3 control-label" data-translate>Coin</label>
+                            <div class="col-sm-2">
                                 <select id="network-phrase" disabled class="network form-control">
                                     <!-- populated by javascript -->
                                 </select>
                             </div>
                         </div>
                         <div class="form-group" style="display:none">
-                            <label for="root-key" class="col-sm-2 control-label" data-translate>BIP32 Root Key</label>
-                            <div class="col-sm-10">
+                            <label for="root-key" class="col-sm-3 control-label" data-translate>BIP32 Root Key</label>
+                            <div class="col-sm-9">
                                 <textarea id="root-key" class="root-key form-control" data-show-qr></textarea>
                             </div>
                         </div>
