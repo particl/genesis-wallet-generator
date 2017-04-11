@@ -58,16 +58,17 @@
             .phrase {
                 word-break: keep-all;
                 background: #f8eae8 repeating-linear-gradient(45deg, #f54b00, #f54b00 10px, #dd4400 10px, #dd4400 20px);
-                border: 1px solid #f54b00;
+                border: none;
             }
             .passphrase {
                 background: #e5f7f3 repeating-linear-gradient(45deg, #02e8b0, #02e8b0 10px, #00d7a3 10px, #00d7a3 20px);
-                border: 1px solid #02e8b0;
+                border: none;
             }
             .phrase, .passphrase {
-                text-align: center; word-spacing: 5px;
-                padding: 1.5rem 3rem;
-                background-size: 1.2rem 100%; background-repeat: no-repeat;
+                font-size: 1.55rem; word-spacing: 5px;
+                padding: 1.2rem 2.2rem;
+                background-size: 100% 0.8rem; background-repeat: no-repeat;
+                background-position: bottom; border-radius: 7px; box-shadow: none;
             }
             .control-label > p {
                 font-size: 1.3rem; font-weight: normal;
@@ -118,8 +119,7 @@
             }
             
             .highlight {
-                background: repeating-linear-gradient(45deg, #fafafa, #fafafa 10px, #f5f5f5 10px, #f5f5f5 20px);
-                border-radius: 7px; border-bottom: 1px solid #cecece;
+                background: #f5f5f5; border-radius: 7px;
                 padding: 2rem 3rem 1.5rem; 
             }
 
@@ -363,7 +363,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <h2>Derivation Path</h2>
-                    <ul class="derivation-type nav nav-tabs" role="tablist">
+                    <ul class="derivation-type nav nav-tabs hidden" role="tablist">
                         <li id="bip44-tab" class="active">
                             <a href="#bip44" role="tab" data-toggle="tab">BIP44</a>
                         </li>
@@ -372,82 +372,81 @@
                         </li> -->
                     </ul>
                     <div class="derivation-type tab-content">
-
                         <div id="bip44" class="tab-pane active">
                             <form class="form-horizontal" role="form">
-                                <br>
-                                <div class="col-sm-2"></div>
-                                <div class="col-sm-10 hidden">
-                                    <p data-translate-html>
-                                        For more info see the
-                                        <a href="https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki" target="_blank">BIP44 spec</a>.
-                                    </p>
+                                <div class="form-group hidden">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-9">
+                                        <p data-translate-html>
+                                            For more info see the
+                                            <a href="https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki" target="_blank">BIP44 spec</a>.
+                                        </p>
+                                    </div>
                                 </div>
                                 <div class="form-group hidden">
-                                    <label for="purpose" class="col-sm-2 control-label">
+                                    <label for="purpose" class="col-sm-3 control-label">
                                         <a href="https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki#purpose" target="_blank" data-translate>Purpose</a>
                                     </label>
-                                    <div class="col-sm-10 hidden">
+                                    <div class="col-sm-9 hidden">
                                         <input id="purpose" type="text" class="purpose form-control" value="44">
                                     </div>
                                 </div>
                                 <div class="form-group hidden">
-                                    <label for="coin" class="col-sm-2 control-label">
+                                    <label for="coin" class="col-sm-3 control-label">
                                         <a href="https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki#registered-coin-types" target="_blank" data-translate>Coin</a>
                                     </label>
-                                    <div class="col-sm-10 hidden">
+                                    <div class="col-sm-9 hidden">
                                         <input id="coin" type="text" class="coin form-control" value="44">
                                     </div>
                                 </div>
                                 <div class="form-group hidden">
-                                    <label for="account" class="col-sm-2 control-label">
+                                    <label for="account" class="col-sm-3 control-label">
                                         <a href="https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki#account" target="_blank" data-translate>Account</a>
                                     </label>
-                                    <div class="col-sm-10 hidden">
+                                    <div class="col-sm-9 hidden">
                                         <input id="account" type="text" class="account form-control" value="0">
                                     </div>
                                 </div>
                                 <div class="form-group hidden">
-                                    <label for="change" class="col-sm-2 control-label">
+                                    <label for="change" class="col-sm-3 control-label">
                                         <a href="https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki#change" target="_blank" data-translate>External / Internal</a>
                                     </label>
-                                    <div class="col-sm-10 hidden">
+                                    <div class="col-sm-9 hidden">
                                         <input id="change" type="text" class="change form-control" value="0">
                                     </div>
                                 </div>
                                 <div class="form-group hidden">
-                                    <label class="col-sm-2 control-label">
+                                    <label class="col-sm-3 control-label">
                                     </label>
-                                    <div class="col-sm-10 hidden">
+                                    <div class="col-sm-9 hidden">
                                         <p data-translate>The account extended keys can be used for importing to most BIP44 compatible wallets, such as mycelium or electrum.</p>
                                     </div>
                                 </div>
                                 <div class="form-group hidden">
-                                    <label for="account-xprv" class="col-sm-2 control-label">
+                                    <label for="account-xprv" class="col-sm-3 control-label">
                                         <span data-translate>Account Extended Private Key</span>
                                     </label>
-                                    <div class="col-sm-10 hidden">
+                                    <div class="col-sm-9 hidden">
                                         <textarea id="account-xprv" type="text" class="account-xprv form-control" readonly data-show-qr></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group hidden">
-                                    <label for="account-xpub" class="col-sm-2 control-label">
+                                    <label for="account-xpub" class="col-sm-3 control-label">
                                         <span data-translate>Account Extended Public Key</span>
                                     </label>
-                                    <div class="col-sm-10 hidden">
+                                    <div class="col-sm-9 hidden">
                                         <textarea id="account-xpub" type="text" class="account-xpub form-control" readonly data-show-qr></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">
-                                    </label>
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-9">
                                         <p data-translate>The BIP32 derivation path and extended keys are the basis for the derived addresses.</p>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="bip44-path" class="col-sm-2 control-label" data-translate>Derivation Path (BIP32)</label>
-                                    <div class="col-sm-10">
+                                    <label for="bip44-path" class="col-sm-3 control-label" data-translate>Derivation Path (BIP32)</label>
+                                    <div class="col-sm-9">
                                         <input id="bip44-path" type="text" class="path form-control" value="" readonly="readonly">
                                     </div>
                                 </div>
@@ -457,16 +456,16 @@
                         <div id="bip32" class="tab-pane">
                             <form class="form-horizontal" role="form">
                                 <br>
-                                <div class="col-sm-2"></div>
-                                <div class="col-sm-10">
+                                <div class="col-sm-3"></div>
+                                <div class="col-sm-9">
                                     <p data-translate>
                                         For more info see the
                                         <a href="https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki" target="_blank">BIP32 spec</a>
                                     </p>
                                 </div>
                                 <div class="form-group">
-                                    <label for="bip32-client" class="col-sm-2 control-label" data-translate>Client</label>
-                                    <div class="col-sm-10">
+                                    <label for="bip32-client" class="col-sm-3 control-label" data-translate>Client</label>
+                                    <div class="col-sm-9">
                                         <select id="bip32-client" class="client form-control">
                                             <option value="custom">Custom derivation path</option>
                                             <!-- populated by javascript -->
@@ -474,21 +473,21 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="bip32-path" class="col-sm-2 control-label" data-translate>BIP32 Derivation Path</label>
-                                    <div class="col-sm-10">
+                                    <label for="bip32-path" class="col-sm-3 control-label" data-translate>BIP32 Derivation Path</label>
+                                    <div class="col-sm-9">
                                         <input id="bip32-path" type="text" class="path form-control" value="m/0">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <div class="col-sm-2"></div>
-                                    <label class="col-sm-10">
+                                    <div class="col-sm-3"></div>
+                                    <label class="col-sm-9">
                                         <input class="hardened-addresses" type="checkbox">
                                         <span data-translate>Use hardened addresses</span>
                                     </label>
                                 </div>
                                 <div class="form-group">
-                                    <label for="core-path" class="col-sm-2 control-label" data-translate>Bitcoin Core</label>
-                                    <div class="col-sm-10">
+                                    <label for="core-path" class="col-sm-3 control-label" data-translate>Bitcoin Core</label>
+                                    <div class="col-sm-9">
                                         <p class="form-control no-border" data-translate-html>
                                         Use path <code>m/0'/0'</code> with hardened addresses.
                                         </p>
@@ -499,8 +498,8 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="core-path" class="col-sm-2 control-label" data-translate>Multibit</label>
-                                    <div class="col-sm-10">
+                                    <label for="core-path" class="col-sm-3 control-label" data-translate>Multibit</label>
+                                    <div class="col-sm-9">
                                         <p class="form-control no-border">
                                             <span data-translate-html>Use path <code>m/0'/0</code>.</span>
                                         </p>
@@ -511,8 +510,8 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label" data-translate>Block Explorers</label>
-                                    <div class="col-sm-10">
+                                    <label class="col-sm-3 control-label" data-translate>Block Explorers</label>
+                                    <div class="col-sm-9">
                                         <p class="form-control no-border">
                                             <span data-translate-html>Use path <code>m/44'/0'/0'</code>.</span>
                                             <span data-translate-html>Only enter the <code>xpub</code> extended key into block explorer search fields, never the <code>xprv</code> key.</span>
@@ -528,20 +527,29 @@
                     </div>
                     <form class="form-horizontal" role="form">
                         <div class="form-group hidden">
-                            <label for="extended-priv-key" class="col-sm-2 control-label" data-translate>BIP32 Extended Private Key</label>
-                            <div class="col-sm-10">
+                            <label for="extended-priv-key" class="col-sm-3 control-label" data-translate>BIP32 Extended Private Key</label>
+                            <div class="col-sm-9">
                                 <textarea id="extended-priv-key" class="extended-priv-key form-control" readonly="readonly" data-show-qr></textarea>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="extended-pub-key" class="col-sm-2 control-label" data-translate>Extended Public Key (BIP32)</label>
-                            <div class="col-sm-10">
+                            <label for="extended-pub-key" class="col-sm-3 control-label" data-translate>Extended Public Key (BIP32)</label>
+                            <div class="col-sm-9">
                                 <textarea id="extended-pub-key" class="extended-pub-key form-control" readonly="readonly" data-show-qr></textarea>
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
+
+
+
+
+
+
+
+
+
 
             <hr>
 
