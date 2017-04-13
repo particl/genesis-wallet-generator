@@ -11,21 +11,70 @@
         <link type="image/x-icon" rel="icon" href="data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQEAYAAABPYyMiAAAABmJLR0T///////8JWPfcAAAACXBIWXMAAABIAAAASABGyWs+AAAAF0lEQVRIx2NgGAWjYBSMglEwCkbBSAcACBAAAeaR9cIAAAAASUVORK5CYII=" />
 
         <style>
+        /*
+            PARTICL BRAND COLORS
+            --------------------
+            black-ish: #1a1a1a;
+            grey: #343434;
+            green: #02e8b0;
+            white: #fff;
+        */
             body {
                 padding-bottom: 32px;
+                font-family: "Open Sans", "Helvetica", "Arial", sans-serif;
             }
+
+            .btn {
+                background: #02e8b0; border-bottom: 2px solid #00b98c;
+                text-transform: uppercase; font-weight: 600;
+            }
+            .btn:hover { background: #00d7a2; border-bottom: 2px solid #00aa80; }
+
+            #header {
+                background: #222222;
+                padding: 4rem 0;
+                color: white;
+            }
+            @media (max-width: 768px) {
+                #header { text-align: center; }
+            }
+            #header h1 {
+                font-size: 1.8rem; font-weight: normal; text-transform: uppercase; line-height: 1.3;
+            }
+            @media (min-width: 768px) {
+                #header h1 { border-left: 4px solid #343434; padding: 1.2rem 0 1.2rem 2.5rem; }
+            }
+
+            h2 {
+                border-bottom: 3px solid #02e8b0;
+                padding: 1.3rem 0; margin: 3rem 0 2rem;
+                font-size: 1.8rem; text-transform: uppercase; font-weight: 600;
+            }
+            h3, .h3 { font-size: 18px; }
+
+            ul li { margin: 0.4rem 0; }
+
             .form-control[readonly] {
                 cursor: text;
             }
 
-	    .phrase {
-		border: 1px solid RED;
-		color: red;		
-	    }
-
+            .phrase {
+                word-break: keep-all;
+                background: #e5f7f3 repeating-linear-gradient(45deg, #02e8b0, #02e8b0 10px, #00d7a3 10px, #00d7a3 20px);
+                border: none;
+            }
             .passphrase {
-                border: 1px solid RED;
-                color: red;
+                background: repeating-linear-gradient(45deg, #e5e5e5, #e5e5e5 10px, #f5f5f5 10px, #f5f5f5 20px);
+            }
+            .phrase, .passphrase {
+                font-size: 1.55rem; word-spacing: 5px;
+                padding: 1.2rem 2.2rem;
+                background-size: 100% 0.8rem; background-repeat: no-repeat;
+                background-position: bottom; border-radius: 7px; box-shadow: none;
+            }
+            .control-label > p {
+                font-size: 1.3rem; font-weight: normal;
+                margin: 0.3rem 0 0;
             }
 
             .feedback-container {
@@ -36,24 +85,16 @@
                 z-index: 4;
             }
             .feedback {
-                display: table;
-                padding: 0.5em 1em;
-                background-color: orange;
-                margin: 0 auto;
-                font-size: 2em;
-                color: #444;
-                border: 2px solid #555;
-                border-top: 0;
-                border-bottom-left-radius: 20px 20px;
-                border-bottom-right-radius: 20px 20px;
+                display: table; padding: 1rem 4rem; margin: 0 auto;
+                background: #02e8b0;
+                font-size: 2.3rem; color: #1a1a1a; text-transform: uppercase; font-weight: 600;
+                border: 2px solid #00c897; border-top: 0;
+                border-bottom-left-radius: 7px; border-bottom-right-radius: 7px;
             }
             .no-border {
                 border: 0;
                 box-shadow: inset 0 1px 1px rgba(0,0,0,.0);
                 -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.0);
-            }
-            .phrase {
-                word-break: keep-all;
             }
             .generate-container .strength {
                 /* override mobile width from bootstrap */
@@ -69,16 +110,29 @@
             }
             .monospace {
                 font-family: monospace;
-		color: #000;		
+                color: #000;		
             }
             .monospace .address {
                 font-family: monospace;
                 color: green;
             }
-	    .extended-pub-key {
+            .extended-pub-key {
                 color: green;
             }
+            .addresses { font-size: 1.5rem; }
+            .table .index-toggle,
+            .table .address-toggle { display: none; }
+            .addresses .pubkey,
+            .addresses .privkey { display: none; }
+            
+            .highlight {
+                background: #f5f5f5; border-radius: 7px;
+                padding: 2rem 3rem 1.5rem; 
+            }
 
+            .entropy-container {
+                margin: 1rem 0; padding: 1.5rem 0;
+            }
             .entropy-container .filtered,
             .entropy-container .binary {
                 word-wrap: break-word;
@@ -86,6 +140,7 @@
             .entropy-container li {
                 padding-bottom: 5px;
             }
+
             .card-suit {
                 font-size: 19px;
                 line-height: 0;
@@ -126,17 +181,29 @@
         </style>
     </head>
     <body>
+
+        <div id="header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-4 col-md-3">
+                        <img class="logo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAABXCAIAAADOCp1fAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAxJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6RjcyMjdBNjFGQ0Y5MTFFNkJCQThCMTgyNTg2MzY5OUYiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6RjcyMjdBNjBGQ0Y5MTFFNkJCQThCMTgyNTg2MzY5OUYiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiBNYWNpbnRvc2giPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0iRkREN0VCNjgwMzE3NDkwRDI0NjQ5QTgwQTBFNDE4NEUiIHN0UmVmOmRvY3VtZW50SUQ9IkZERDdFQjY4MDMxNzQ5MEQyNDY0OUE4MEEwRTQxODRFIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+zRyLTAAAKd9JREFUeNrtXQecVNX1PrM7vfeZ3WmvvzcDiIKF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" alt="">
+                    </div>
+                    <div class="col-sm-8 col-md-9">
+                      <h1>Offline Genesis Wallet Generator</h1>
+                    </div>
+                </div>
+            </div>
+        </div><!-- #header -->
+
         <div class="container">
 
-            <h1 class="text-center">Particl Offline Genesis Wallet Generator</h1>
-            <hr>
             <div class="row">
                 <div class="col-md-12">
                     <h2>Wallet Recovery Phrase</h2>
                     <form class="form-horizontal" role="form">
                         <div class="form-group">
-                            <div class="col-sm-2"></div>
-                            <div class="col-sm-10">
+                            <div class="col-sm-3"></div>
+                            <div class="col-sm-9">
                                 <p data-translate>You can enter an existing Wallet Recovery Phrase (BIP39 Mnemonic), or generate a new random one. Typing your own twenty-four words will probably not work how you expect, since the words require a particular structure (the last word is a checksum).</p>
                                 <p data-translate-html>
                                     For more info see the
@@ -145,28 +212,32 @@
                             </div>
                         </div>
                         <div class="form-group generate-container">
-                            <label class="col-sm-2 control-label"></label>
-                            <div class="col-sm-10">
-                                <div class="form-inline">
+                            <label class="col-sm-3 control-label"></label>
+                            <div class="col-sm-9">
+                                <div class="highlight form-inline">
                                     <div class="input-group-inline">
-                                        <span data-translate>Generate a Wallet Recovery Phrase, or enter your own below</span>:
-                                        <button class="btn generate">Generate</button>
-                                        <select id="strength" class="strength form-control">
-                                            <option value="3">3</option>
-                                            <option value="6">6</option>
-                                            <option value="9">9</option>
-                                            <option value="12">12</option>
-                                            <option value="15">15</option>
-                                            <option value="18">18</option>
-                                            <option value="21">21</option>
-                                            <option value="24" selected>24</option>
-                                        </select>
-                                        <span data-translate>words</span>
+                                        <p>
+                                            <span data-translate><b>Generate a Wallet Recovery Phrase</b>, or enter your own below</span>:
+                                        </p>
+                                        <p>
+                                            <button class="btn generate">Generate</button>
+                                            <select id="strength" class="strength form-control">
+                                                <option value="3">3</option>
+                                                <option value="6">6</option>
+                                                <option value="9">9</option>
+                                                <option value="12">12</option>
+                                                <option value="15">15</option>
+                                                <option value="18">18</option>
+                                                <option value="21">21</option>
+                                                <option value="24" selected>24</option>
+                                            </select>
+                                            <span data-translate>words</span>
+                                        </p>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="entropy-container hidden">
+                        <div class="entropy-container highlight hidden">
                             <div class="form-group text-danger">
                                 <label class="col-sm-2 control-label" data-translate>Warning</label>
                                 <div class="col-sm-10 form-control-static">
@@ -226,17 +297,17 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-sm-2"></div>
-                            <div class="col-sm-10 checkbox">
+                            <div class="col-sm-3"></div>
+                            <div class="col-sm-9 checkbox">
                                 <label>
                                     <input type="checkbox" class="use-entropy">
-                                    <span data-translate>Supply my own source of entropy</span>
+                                    <span data-translate>Supply my own source of entropy</span> (for advanced users only!)
                                 </label>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label" data-translate>Mnemonic Language</label>
-                            <div class="col-sm-10 languages">
+                            <label class="col-sm-3 control-label" data-translate>Mnemonic Language</label>
+                            <div class="col-sm-9 languages">
                                 <div class="form-control no-border">
                                     <a href="#english">English</a>
                                     <a href="#japanese" title="Japanese">日本語</a>
@@ -249,34 +320,44 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="phrase" class="col-sm-2 control-label" data-translate>Recovery Phrase (BIP39)</label>
-                            <div class="col-sm-10">
+                            <label for="phrase" class="col-sm-3 control-label" data-translate>
+                                Recovery Phrase (BIP39)
+                                <p>
+                                    These words are used to recover your wallet. Keep them safe!
+                                </p>
+                            </label>
+                            <div class="col-sm-9">
                                 <textarea id="phrase" class="phrase form-control" data-show-qr></textarea>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="passphrase" class="col-sm-2 control-label" data-translate>Passphrase (optional)</label>
-                            <div class="col-sm-10">
+                            <label for="passphrase" class="col-sm-3 control-label" data-translate>
+                                Passphrase (optional)
+                                <p>
+                                    Anyone knowing this passphrase can steal your coins!
+                                </p>
+                            </label>
+                            <div class="col-sm-9">
                                 <textarea id="passphrase" class="passphrase form-control"></textarea>
                             </div>
                         </div>
                         <div class="form-group" style="display:none">
-                            <label for="seed" class="col-sm-2 control-label" data-translate>BIP39 Seed</label>
-                            <div class="col-sm-10">
+                            <label for="seed" class="col-sm-3 control-label" data-translate>BIP39 Seed</label>
+                            <div class="col-sm-9">
                                 <textarea id="seed" class="seed form-control" readonly="readonly" data-show-qr></textarea>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="network-phrase" class="col-sm-2 control-label" data-translate>Coin</label>
-                            <div class="col-sm-10">
-                                <select id="network-phrase" class="network form-control">
+                            <label for="network-phrase" class="col-sm-3 control-label" data-translate>Coin</label>
+                            <div class="col-sm-2">
+                                <select id="network-phrase" disabled class="network form-control">
                                     <!-- populated by javascript -->
                                 </select>
                             </div>
                         </div>
                         <div class="form-group" style="display:none">
-                            <label for="root-key" class="col-sm-2 control-label" data-translate>BIP32 Root Key</label>
-                            <div class="col-sm-10">
+                            <label for="root-key" class="col-sm-3 control-label" data-translate>BIP32 Root Key</label>
+                            <div class="col-sm-9">
                                 <textarea id="root-key" class="root-key form-control" data-show-qr></textarea>
                             </div>
                         </div>
@@ -289,7 +370,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <h2>Derivation Path</h2>
-                    <ul class="derivation-type nav nav-tabs" role="tablist">
+                    <ul class="derivation-type nav nav-tabs hidden" role="tablist">
                         <li id="bip44-tab" class="active">
                             <a href="#bip44" role="tab" data-toggle="tab">BIP44</a>
                         </li>
@@ -298,82 +379,81 @@
                         </li> -->
                     </ul>
                     <div class="derivation-type tab-content">
-
                         <div id="bip44" class="tab-pane active">
                             <form class="form-horizontal" role="form">
-                                <br>
-                                <div class="col-sm-2"></div>
-                                <div class="col-sm-10 hidden">
-                                    <p data-translate-html>
-                                        For more info see the
-                                        <a href="https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki" target="_blank">BIP44 spec</a>.
-                                    </p>
+                                <div class="form-group hidden">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-9">
+                                        <p data-translate-html>
+                                            For more info see the
+                                            <a href="https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki" target="_blank">BIP44 spec</a>.
+                                        </p>
+                                    </div>
                                 </div>
                                 <div class="form-group hidden">
-                                    <label for="purpose" class="col-sm-2 control-label">
+                                    <label for="purpose" class="col-sm-3 control-label">
                                         <a href="https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki#purpose" target="_blank" data-translate>Purpose</a>
                                     </label>
-                                    <div class="col-sm-10 hidden">
+                                    <div class="col-sm-9 hidden">
                                         <input id="purpose" type="text" class="purpose form-control" value="44">
                                     </div>
                                 </div>
                                 <div class="form-group hidden">
-                                    <label for="coin" class="col-sm-2 control-label">
+                                    <label for="coin" class="col-sm-3 control-label">
                                         <a href="https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki#registered-coin-types" target="_blank" data-translate>Coin</a>
                                     </label>
-                                    <div class="col-sm-10 hidden">
+                                    <div class="col-sm-9 hidden">
                                         <input id="coin" type="text" class="coin form-control" value="44">
                                     </div>
                                 </div>
                                 <div class="form-group hidden">
-                                    <label for="account" class="col-sm-2 control-label">
+                                    <label for="account" class="col-sm-3 control-label">
                                         <a href="https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki#account" target="_blank" data-translate>Account</a>
                                     </label>
-                                    <div class="col-sm-10 hidden">
+                                    <div class="col-sm-9 hidden">
                                         <input id="account" type="text" class="account form-control" value="0">
                                     </div>
                                 </div>
                                 <div class="form-group hidden">
-                                    <label for="change" class="col-sm-2 control-label">
+                                    <label for="change" class="col-sm-3 control-label">
                                         <a href="https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki#change" target="_blank" data-translate>External / Internal</a>
                                     </label>
-                                    <div class="col-sm-10 hidden">
+                                    <div class="col-sm-9 hidden">
                                         <input id="change" type="text" class="change form-control" value="0">
                                     </div>
                                 </div>
                                 <div class="form-group hidden">
-                                    <label class="col-sm-2 control-label">
+                                    <label class="col-sm-3 control-label">
                                     </label>
-                                    <div class="col-sm-10 hidden">
+                                    <div class="col-sm-9 hidden">
                                         <p data-translate>The account extended keys can be used for importing to most BIP44 compatible wallets, such as mycelium or electrum.</p>
                                     </div>
                                 </div>
                                 <div class="form-group hidden">
-                                    <label for="account-xprv" class="col-sm-2 control-label">
+                                    <label for="account-xprv" class="col-sm-3 control-label">
                                         <span data-translate>Account Extended Private Key</span>
                                     </label>
-                                    <div class="col-sm-10 hidden">
+                                    <div class="col-sm-9 hidden">
                                         <textarea id="account-xprv" type="text" class="account-xprv form-control" readonly data-show-qr></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group hidden">
-                                    <label for="account-xpub" class="col-sm-2 control-label">
+                                    <label for="account-xpub" class="col-sm-3 control-label">
                                         <span data-translate>Account Extended Public Key</span>
                                     </label>
-                                    <div class="col-sm-10 hidden">
+                                    <div class="col-sm-9 hidden">
                                         <textarea id="account-xpub" type="text" class="account-xpub form-control" readonly data-show-qr></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">
-                                    </label>
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-9">
                                         <p data-translate>The BIP32 derivation path and extended keys are the basis for the derived addresses.</p>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="bip44-path" class="col-sm-2 control-label" data-translate>Derivation Path (BIP32)</label>
-                                    <div class="col-sm-10">
+                                    <label for="bip44-path" class="col-sm-3 control-label" data-translate>Derivation Path (BIP32)</label>
+                                    <div class="col-sm-9">
                                         <input id="bip44-path" type="text" class="path form-control" value="" readonly="readonly">
                                     </div>
                                 </div>
@@ -383,16 +463,16 @@
                         <div id="bip32" class="tab-pane">
                             <form class="form-horizontal" role="form">
                                 <br>
-                                <div class="col-sm-2"></div>
-                                <div class="col-sm-10">
+                                <div class="col-sm-3"></div>
+                                <div class="col-sm-9">
                                     <p data-translate>
                                         For more info see the
                                         <a href="https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki" target="_blank">BIP32 spec</a>
                                     </p>
                                 </div>
                                 <div class="form-group">
-                                    <label for="bip32-client" class="col-sm-2 control-label" data-translate>Client</label>
-                                    <div class="col-sm-10">
+                                    <label for="bip32-client" class="col-sm-3 control-label" data-translate>Client</label>
+                                    <div class="col-sm-9">
                                         <select id="bip32-client" class="client form-control">
                                             <option value="custom">Custom derivation path</option>
                                             <!-- populated by javascript -->
@@ -400,21 +480,21 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="bip32-path" class="col-sm-2 control-label" data-translate>BIP32 Derivation Path</label>
-                                    <div class="col-sm-10">
+                                    <label for="bip32-path" class="col-sm-3 control-label" data-translate>BIP32 Derivation Path</label>
+                                    <div class="col-sm-9">
                                         <input id="bip32-path" type="text" class="path form-control" value="m/0">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <div class="col-sm-2"></div>
-                                    <label class="col-sm-10">
+                                    <div class="col-sm-3"></div>
+                                    <label class="col-sm-9">
                                         <input class="hardened-addresses" type="checkbox">
                                         <span data-translate>Use hardened addresses</span>
                                     </label>
                                 </div>
                                 <div class="form-group">
-                                    <label for="core-path" class="col-sm-2 control-label" data-translate>Bitcoin Core</label>
-                                    <div class="col-sm-10">
+                                    <label for="core-path" class="col-sm-3 control-label" data-translate>Bitcoin Core</label>
+                                    <div class="col-sm-9">
                                         <p class="form-control no-border" data-translate-html>
                                         Use path <code>m/0'/0'</code> with hardened addresses.
                                         </p>
@@ -425,8 +505,8 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="core-path" class="col-sm-2 control-label" data-translate>Multibit</label>
-                                    <div class="col-sm-10">
+                                    <label for="core-path" class="col-sm-3 control-label" data-translate>Multibit</label>
+                                    <div class="col-sm-9">
                                         <p class="form-control no-border">
                                             <span data-translate-html>Use path <code>m/0'/0</code>.</span>
                                         </p>
@@ -437,8 +517,8 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label" data-translate>Block Explorers</label>
-                                    <div class="col-sm-10">
+                                    <label class="col-sm-3 control-label" data-translate>Block Explorers</label>
+                                    <div class="col-sm-9">
                                         <p class="form-control no-border">
                                             <span data-translate-html>Use path <code>m/44'/0'/0'</code>.</span>
                                             <span data-translate-html>Only enter the <code>xpub</code> extended key into block explorer search fields, never the <code>xprv</code> key.</span>
@@ -454,14 +534,14 @@
                     </div>
                     <form class="form-horizontal" role="form">
                         <div class="form-group hidden">
-                            <label for="extended-priv-key" class="col-sm-2 control-label" data-translate>BIP32 Extended Private Key</label>
-                            <div class="col-sm-10">
+                            <label for="extended-priv-key" class="col-sm-3 control-label" data-translate>BIP32 Extended Private Key</label>
+                            <div class="col-sm-9">
                                 <textarea id="extended-priv-key" class="extended-priv-key form-control" readonly="readonly" data-show-qr></textarea>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="extended-pub-key" class="col-sm-2 control-label" data-translate>Extended Public Key (BIP32)</label>
-                            <div class="col-sm-10">
+                            <label for="extended-pub-key" class="col-sm-3 control-label" data-translate>Extended Public Key (BIP32)</label>
+                            <div class="col-sm-9">
                                 <textarea id="extended-pub-key" class="extended-pub-key form-control" readonly="readonly" data-show-qr></textarea>
                             </div>
                         </div>
@@ -489,7 +569,7 @@
                                     <button class="address-toggle" data-translate>Toggle</button>
                                 </div>
                             </th>
-                            <th>
+                            <!--th>
                                 <div class="input-group hidden">
                                     <span data-translate>Public Key</span>&nbsp;&nbsp;
                                     <button class="public-key-toggle" data-translate>Toggle</button>
@@ -500,10 +580,10 @@
                                     <span data-translate>Private Key</span>&nbsp;&nbsp;
                                     <button class="private-key-toggle" data-translate>Toggle</button>
                                 </div>
-                            </th>
+                            </th-->
                         </thead>
                         <tbody class="addresses monospace">
-                            <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                            <tr><td>&nbsp;</td><td>&nbsp;</td><!--td>&nbsp;</td><td>&nbsp;</td--></tr>
                         </tbody>
                     </table>
                 </div>
@@ -630,40 +710,38 @@
 
                     <h3 data-translate>Libraries</h3>
 
-                    <p>
-                        <span>BitcoinJS - </span>
-                        <a href="https://github.com/bitcoinjs/bitcoinjs-lib" target="_blank">
-                            https://github.com/bitcoinjs/bitcoinjs-lib
-                        </a>
-                    </p>
-
-                    <p>
-                        <span>jsBIP39 - </span>
-                        <a href="https://github.com/iancoleman/jsbip39" target="_blank">
-                            https://github.com/iancoleman/jsbip39
-                        </a>
-                    </p>
-
-                    <p>
-                        <span>sjcl - </span>
-                        <a href="https://github.com/bitwiseshiftleft/sjcl" target="_blank">
-                            https://github.com/bitwiseshiftleft/sjcl
-                        </a>
-                    </p>
-
-                    <p>
-                        <span>jQuery - </span>
-                        <a href="https://jquery.com/" target="_blank">
-                            https://jquery.com/
-                        </a>
-                    </p>
-
-                    <p>
-                        <span>Twitter Bootstrap - </span>
-                        <a href="http://getbootstrap.com/" target="_blank">
-                            http://getbootstrap.com/
-                        </a>
-                    </p>
+                    <ul>
+                        <li>
+                            <span>BitcoinJS - </span>
+                            <a href="https://github.com/bitcoinjs/bitcoinjs-lib" target="_blank">
+                                https://github.com/bitcoinjs/bitcoinjs-lib
+                            </a>
+                        </li>
+                        <li>
+                            <span>jsBIP39 - </span>
+                            <a href="https://github.com/iancoleman/jsbip39" target="_blank">
+                                https://github.com/iancoleman/jsbip39
+                            </a>
+                        </li>
+                        <li>
+                            <span>sjcl - </span>
+                            <a href="https://github.com/bitwiseshiftleft/sjcl" target="_blank">
+                                https://github.com/bitwiseshiftleft/sjcl
+                            </a>
+                        </li>
+                        <li>
+                            <span>jQuery - </span>
+                            <a href="https://jquery.com/" target="_blank">
+                                https://jquery.com/
+                            </a>
+                        </li>
+                        <li>
+                            <span>Twitter Bootstrap - </span>
+                            <a href="http://getbootstrap.com/" target="_blank">
+                                http://getbootstrap.com/
+                            </a>
+                        </li>
+                    </ul>
 
                 </div>
             </div>
