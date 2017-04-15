@@ -10565,12 +10565,12 @@ HDNode.prototype.neutered = function () {
   return neutered
 }
 
-HDNode.prototype.toBase58 = function (isPrivate) {
-  return base58check.encode(this.toBuffer(isPrivate, true))
+HDNode.prototype.toBase58 = function (isPrivate, isTestnet = false) {
+  return base58check.encode(this.toBuffer(isPrivate, true, isTestnet))
 }
 
 // FIXME: remove in 2.x.y
-HDNode.prototype.toBuffer = function (isPrivate, __ignoreDeprecation) {
+HDNode.prototype.toBuffer = function (isPrivate, __ignoreDeprecation, isTestnet = false) {
   if (isPrivate === undefined) {
     isPrivate = !!this.privKey
 
@@ -10585,6 +10585,10 @@ HDNode.prototype.toBuffer = function (isPrivate, __ignoreDeprecation) {
 
   // Version
   var version = isPrivate ? this.network.bip32.private : this.network.bip32.public
+  
+  if (isTestnet)
+    version = this.network.bip32_testnet.public;
+  
   var buffer = new Buffer(HDNode.LENGTH)
 
   // 4 bytes: version bytes

@@ -6,6 +6,7 @@
     var seed = null;
     var bip32RootKey = null;
     var bip32ExtendedKey = null;
+    var bip32ExtendedKeyTestnet = null;
     var network = bitcoin.networks.particl;
     var addressRowTemplate = $("#address-row-template");
 
@@ -264,6 +265,10 @@
             return;
         }
         bip32ExtendedKey = calcBip32ExtendedKey(derivationPath);
+        
+        var derivationPathTestnet = "m/44'/1'/0'/444444";
+        bip32ExtendedKeyTestnet = calcBip32ExtendedKey(derivationPathTestnet);
+        
         if (bip44TabSelected()) {
             displayBip44Info();
         }
@@ -423,7 +428,7 @@
         }
         return "";
     }
-
+    
     function getDerivationPath() {
         if (bip44TabSelected()) {
             var purpose = parseIntNoNaN(DOM.bip44purpose.val(), 44);
@@ -434,7 +439,9 @@
             path += purpose + "'/";
             path += coin + "'/";
             path += account + "'/";
-            path += change;
+            //path += change;
+            path += "444444";
+            
             DOM.bip44path.val(path);
             var derivationPath = DOM.bip44path.val();
             console.log("Using derivation path from BIP44 tab: " + derivationPath);
@@ -527,7 +534,9 @@
         var extendedPrivKey = xprvkeyB58;
         DOM.extendedPrivKey.val(extendedPrivKey);
         var extendedPubKey = bip32ExtendedKey.toBase58(false);
-        DOM.extendedPubKey.val(extendedPubKey);
+        var extendedPubKeyTestnet = bip32ExtendedKeyTestnet.toBase58(false, true);
+        
+        DOM.extendedPubKey.val(extendedPubKey+':'+extendedPubKeyTestnet);
         // Display the addresses and privkeys
         clearAddressesList();
         displayAddresses(0, 1); //dasource

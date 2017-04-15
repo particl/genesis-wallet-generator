@@ -40,6 +40,9 @@ bitcoin.networks.particl = {
     public: 0x696e82d1,
     private: 0x8f1daeb8
   },
+  bip32_testnet: {
+    public: 0xe1427800
+  },
   pubKeyHash: 0x38,
   scriptHash: 0x3C,
   wif: 0x6C,
