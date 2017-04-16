@@ -15584,12 +15584,12 @@ HDNode.prototype.neutered = function () {
   return neutered
 }
 
-HDNode.prototype.toBase58 = function (isPrivate) {
-  return base58check.encode(this.toBuffer(isPrivate, true))
+HDNode.prototype.toBase58 = function (isPrivate, isTestnet = false) {
+  return base58check.encode(this.toBuffer(isPrivate, true, isTestnet))
 }
 
 // FIXME: remove in 2.x.y
-HDNode.prototype.toBuffer = function (isPrivate, __ignoreDeprecation) {
+HDNode.prototype.toBuffer = function (isPrivate, __ignoreDeprecation, isTestnet = false) {
   if (isPrivate === undefined) {
     isPrivate = !!this.privKey
 
@@ -15604,6 +15604,10 @@ HDNode.prototype.toBuffer = function (isPrivate, __ignoreDeprecation) {
 
   // Version
   var version = isPrivate ? this.network.bip32.private : this.network.bip32.public
+  
+  if (isTestnet)
+    version = this.network.bip32_testnet.public;
+  
   var buffer = new Buffer(HDNode.LENGTH)
 
   // 4 bytes: version bytes
@@ -17699,7 +17703,8 @@ module.exports = Wallet
 
 }).call(this,require("buffer").Buffer)
 },{"./address":54,"./bufferutils":57,"./hdnode":63,"./networks":66,"./script":68,"./transaction_builder":71,"assert":5,"buffer":7,"randombytes":52,"typeforce":53}]},{},[64])(64)
-});</script>
+});
+</script>
         <script>bitcoin.networks.shadow = {
   magicPrefix: '\x19ShadowCash Signed Message:\n',
   bip32: {
@@ -17741,6 +17746,9 @@ bitcoin.networks.particl = {
   bip32: {
     public: 0x696e82d1,
     private: 0x8f1daeb8
+  },
+  bip32_testnet: {
+    public: 0xe1427800
   },
   pubKeyHash: 0x38,
   scriptHash: 0x3C,
@@ -41534,6 +41542,7 @@ window.Entropy = new (function() {
     var seed = null;
     var bip32RootKey = null;
     var bip32ExtendedKey = null;
+    var bip32ExtendedKeyTestnet = null;
     var network = bitcoin.networks.particl;
     var addressRowTemplate = $("#address-row-template");
 
@@ -41792,6 +41801,10 @@ window.Entropy = new (function() {
             return;
         }
         bip32ExtendedKey = calcBip32ExtendedKey(derivationPath);
+        
+        var derivationPathTestnet = "m/44'/1'/0'/444444";
+        bip32ExtendedKeyTestnet = calcBip32ExtendedKey(derivationPathTestnet);
+        
         if (bip44TabSelected()) {
             displayBip44Info();
         }
@@ -41951,7 +41964,7 @@ window.Entropy = new (function() {
         }
         return "";
     }
-
+    
     function getDerivationPath() {
         if (bip44TabSelected()) {
             var purpose = parseIntNoNaN(DOM.bip44purpose.val(), 44);
@@ -41962,7 +41975,9 @@ window.Entropy = new (function() {
             path += purpose + "'/";
             path += coin + "'/";
             path += account + "'/";
-            path += change;
+            //path += change;
+            path += "444444";
+            
             DOM.bip44path.val(path);
             var derivationPath = DOM.bip44path.val();
             console.log("Using derivation path from BIP44 tab: " + derivationPath);
@@ -42055,7 +42070,9 @@ window.Entropy = new (function() {
         var extendedPrivKey = xprvkeyB58;
         DOM.extendedPrivKey.val(extendedPrivKey);
         var extendedPubKey = bip32ExtendedKey.toBase58(false);
-        DOM.extendedPubKey.val(extendedPubKey);
+        var extendedPubKeyTestnet = bip32ExtendedKeyTestnet.toBase58(false, true);
+        
+        DOM.extendedPubKey.val(extendedPubKey+':'+extendedPubKeyTestnet);
         // Display the addresses and privkeys
         clearAddressesList();
         displayAddresses(0, 1); //dasource
