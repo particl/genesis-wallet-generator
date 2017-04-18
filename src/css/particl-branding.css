@@ -15,7 +15,9 @@
 body {
     font-family: "Open Sans", "Helvetica", "Arial", sans-serif;
 }
-
+.container {
+    max-width: 750px;
+}
 .btn {
     background: #02e8b0; border-bottom: 2px solid #00b98c;
     text-transform: uppercase; font-weight: 600;
@@ -39,12 +41,24 @@ body {
 
 h2 {
     border-bottom: 3px solid #02e8b0;
-    padding: 1.3rem 0; margin: 3rem 0 2rem;
-    font-size: 1.8rem; text-transform: uppercase; font-weight: 600;
+    padding: 1rem 0; margin: 5rem 0 2.7rem;
+    font-size: 1.8rem; text-transform: uppercase; font-weight: 600; line-height: 1.4;
 }
-h3, .h3 { font-size: 18px; }
+h3, .h3 {
+    font-size: 14px; text-transform: uppercase; font-weight: 600;
+    margin: 3rem 0 1.4rem;
+}
 
 ul li { margin: 0.4rem 0; }
+.alert-danger {
+    background: none; border: 0; border-left: 5px solid #ef1616; border-radius: 0;
+    padding: 1rem 2rem;
+    color: #ef1616;
+}
+.extended-pub-key {
+    margin-top: 2.5rem; padding: 1.5rem 2rem;
+    color: black;
+}
 
 .form-control[readonly] {
     cursor: text;
@@ -54,9 +68,11 @@ ul li { margin: 0.4rem 0; }
     word-break: keep-all;
     background: #e5f7f3 repeating-linear-gradient(45deg, #02e8b0, #02e8b0 10px, #00d7a3 10px, #00d7a3 20px);
     border: none;
+    margin-bottom: 2rem;
 }
 .passphrase {
     background: repeating-linear-gradient(45deg, #e5e5e5, #e5e5e5 10px, #f5f5f5 10px, #f5f5f5 20px);
+    margin-top: 2.5rem;
 }
 .phrase, .passphrase {
     font-size: 1.55rem; word-spacing: 5px;
@@ -105,11 +121,9 @@ ul li { margin: 0.4rem 0; }
     color: #000;		
 }
 .monospace .address {
-    font-family: monospace;
-    color: green;
-}
-.extended-pub-key {
-    color: green;
+    font-size: 1.5rem; color: white;
+    background: black !important; border: none; border-radius: 5px;
+    display: block; margin-top: 1.5rem; padding: 1rem 2rem;
 }
 .addresses { font-size: 1.5rem; }
 .table .index-toggle,
