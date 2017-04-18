@@ -33,6 +33,8 @@ body {
 .container {
     max-width: 750px;
 }
+a { color: #1a1a1a; text-decoration: underline; }
+a:hover { color: #00b689; }
 .btn {
     background: #02e8b0; border-bottom: 2px solid #00b98c;
     text-transform: uppercase; font-weight: 600;
@@ -56,7 +58,7 @@ body {
 
 h2 {
     border-bottom: 3px solid #02e8b0;
-    padding: 1rem 0; margin: 5rem 0 2.7rem;
+    padding: 1rem 0; margin: 7rem 0 2.7rem;
     font-size: 1.8rem; text-transform: uppercase; font-weight: 600; line-height: 1.4;
 }
 h3, .h3 {
@@ -65,11 +67,13 @@ h3, .h3 {
 }
 
 ul li { margin: 0.4rem 0; }
-.alert-danger {
-    background: none; border: 0; border-left: 5px solid #ef1616; border-radius: 0;
-    padding: 1rem 2rem;
-    color: #ef1616;
+.alert {
+    background: none; border: 0; border-left: 4px solid black; border-radius: 0;
+    padding: 1rem 1.8rem;
 }
+.alert-danger { border-color: #FB022E; color: #FB022E; }
+.alert-info { border-color: #bfbfbf; color: #959595; }
+
 .extended-pub-key {
     margin-top: 2.5rem; padding: 1.5rem 2rem;
     color: black;
@@ -137,7 +141,7 @@ ul li { margin: 0.4rem 0; }
 }
 .monospace .address {
     font-size: 1.5rem; color: white;
-    background: black !important; border: none; border-radius: 5px;
+    background: #1a1a1a !important; border: none; border-radius: 5px;
     display: block; margin-top: 1.5rem; padding: 1rem 2rem;
 }
 .addresses { font-size: 1.5rem; }
@@ -256,13 +260,14 @@ ul li { margin: 0.4rem 0; }
                         <h3>This is your Recovery Phrase:</h3>
                         <textarea id="phrase" class="phrase form-control" data-show-qr></textarea>
                         <p class="alert-danger alert">
-                             <strong>You need to take special care to backup these words</strong>, as they are the key to your coins.<br>If you loose these words, your coins will be gone!
+                            This set of words above allows you to recover your wallet.<br>
+                            <strong>Without it, you will not be able to access your wallet.</strong> These are the keys to accessing your Particl coins.
                         </p>
                         <h2>2. Securing your wallet</h2>
                         <p>
-                            Passphrase is used to further secure your Recovery Phrase and therefore, your Wallet and coins. This step is optional, but <em>highly</em> recommended. Choose a strong passphrase to protect your Wallet:
+                            You can provide further protection to your Recovery Phrase above by setting an optional Passphrase. It is advised to not make this complex as without it you will not be able to access your wallet.
                         </p>
-                        <textarea id="passphrase" class="passphrase form-control"></textarea>
+                        <textarea id="passphrase" class="passphrase form-control" placeholder="Enter your passphrase (optional)"></textarea>
 
                         <div class="form-group coin hidden">
                             <label for="network-phrase" class="col-sm-3 control-label" data-translate>Coin</label>
@@ -370,8 +375,10 @@ ul li { margin: 0.4rem 0; }
                     </div>
                     <form class="form-horizontal" role="form">
                         <p>
-                            Your Public key helps you identify your address. It is shareable.<br>
-                            Think of it like a lock, a lock you own. You'll want to save it.
+                            This is the public key to the <strong>Genesis Import Account</strong> in your newly created Particl Wallet. The Particl Portal will require this information under the <em>"Enter your Public Key"</em>.
+                        </p>
+                        <p class="alert alert-info">
+                            You do not need to store this information once you have entered it into the Particl Portal.
                         </p>
                         <textarea id="extended-pub-key" class="extended-pub-key form-control" readonly="readonly" data-show-qr></textarea>
                     </form>
@@ -382,11 +389,10 @@ ul li { margin: 0.4rem 0; }
                 <div class="generated-address col-md-12">
                     <h2>4. Your Address</h2>
                     <p>
-                        Congratulations! This is your first Particl Address!
+                        This is the first address in your newly created <strong>Genesis Import Account</strong>. This is also required by the Particl Portal under the <em>"Enter your first address"</em> &ndash; Particl Portal will use this address as a sanity check to ensure you have entered the correct Public Key.
                     </p>
-                    <p>
-                        You can use and share this address with others, so they can send you coins.<br>
-                        You'll also want to copy and save this.
+                    <p class="alert alert-info">
+                        You do not need to store this information once you have entered it into the Particl Portal.
                     </p>
                     <table class="table generated-address table-striped">
                         <tbody class="addresses monospace">
@@ -403,10 +409,17 @@ ul li { margin: 0.4rem 0; }
                         That was all. You're now a proud owner of:
                     </p>
                     <ul>
-                        <li>a brand new and <strong>unique Particl Address</strong></li>
-                        <li>a <strong>Public Key</strong> that is used to generate more Addresses</li>
-                        <li>a <strong>Recovery Phrase</strong> in case you'd lost your Wallet or PC</li>
-                        <li>and ideally a <strong>Passphrase</strong> to secure and open your Wallet</li>
+                        <li>a brand new <strong>Particl Wallet</strong> ready to receive your Particl tokens</li>
+                        <li>a <strong>Public Key</strong> that will be used to send your Particl tokens too</li>
+                        <li>a <strong>Recovery Phrase</strong> so that you can access your new Wallet once the mainnet is live and in the future in-case you need to restore access to your Wallet</li>
+                        <li>and ideally a <strong>Passphrase</strong> to secure your Recovery Phrase</li>
+                    </ul>
+                    <p>
+                        Please remember to have safely written down or printed:
+                    </p>
+                    <ul>
+                        <li>the <strong>Recovery Phrase</strong></li>
+                        <li>the optional <strong>Passphrase</strong></li>
                     </ul>
                     <p>
                         If you forgot something, now it's a good time to go back and save all the important information. If you think you made a mistake somewhere, don't worry &ndash; you can start over as many times as you want.
