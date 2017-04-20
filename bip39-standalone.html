@@ -260,15 +260,19 @@ ul li { margin: 0.4rem 0; }
                         <h3>This is your Recovery Phrase:</h3>
                         <textarea id="phrase" class="phrase form-control" data-show-qr></textarea>
                         <p class="alert-danger alert">
-                            This set of words above allows you to recover your wallet.<br>
-                            <strong>Without it, you will not be able to access your wallet.</strong> These are the keys to accessing your Particl coins.
+                            <strong>This set of words above allows you to recover your wallet.<br>
+                            Without it, you will not be able to access your wallet.</strong> These are the keys to accessing your Particl coins. Write these down, store them somewhere safe and do not share these with anyone.
                         </p>
                         <h2>2. Securing your wallet</h2>
                         <p>
-                            You can provide further protection to your Recovery Phrase above by setting an optional Passphrase. It is advised to not make this complex as without it you will not be able to access your wallet.
+                            If someone finds your Recovery Phrase above then they will be able to access all of your coins. You can optionally create a Passphrase to prevent unauthorized access in the case someone finds a copy of your Recovery Phrase above.
                         </p>
                         <textarea id="passphrase" class="passphrase form-control" placeholder="Enter your passphrase (optional)"></textarea>
-
+			<p></p>
+                        <p class="alert-danger alert">
+                             <strong>If you enter a passphrase here then you will also need tha to access your wallet in the future.</strong>  Do not forget or lose this passphrase.<br>
+                        </p>
+                        
                         <div class="form-group coin hidden">
                             <label for="network-phrase" class="col-sm-3 control-label" data-translate>Coin</label>
                             <div class="col-sm-2">
@@ -375,7 +379,7 @@ ul li { margin: 0.4rem 0; }
                     </div>
                     <form class="form-horizontal" role="form">
                         <p>
-                            This is the public key to the <strong>Genesis Import Account</strong> in your newly created Particl Wallet. The Particl Portal will require this information under the <em>"Enter your Public Key"</em>.
+                            This is the public key to the <strong>Genesis Import Account</strong> in your newly created Particl Wallet. The Particl Portal will require this information under <em>"Enter your Public Key"</em>.
                         </p>
                         <p class="alert alert-info">
                             You do not need to store this information once you have entered it into the Particl Portal.
@@ -389,7 +393,7 @@ ul li { margin: 0.4rem 0; }
                 <div class="generated-address col-md-12">
                     <h2>4. Your Address</h2>
                     <p>
-                        This is the first address in your newly created <strong>Genesis Import Account</strong>. This is also required by the Particl Portal under the <em>"Enter your first address"</em> &ndash; Particl Portal will use this address as a sanity check to ensure you have entered the correct Public Key.
+                        This is the first address in your newly created <strong>Genesis Import Account</strong>. This is also required by the Particl Portal under <em>"Enter your first address"</em> &ndash; Particl Portal will use this address as a sanity check to ensure you have entered the correct Public Key.
                     </p>
                     <p class="alert alert-info">
                         You do not need to store this information once you have entered it into the Particl Portal.
@@ -410,8 +414,8 @@ ul li { margin: 0.4rem 0; }
                     </p>
                     <ul>
                         <li>a brand new <strong>Particl Wallet</strong> ready to receive your Particl tokens</li>
-                        <li>a <strong>Public Key</strong> that will be used to send your Particl tokens too</li>
-                        <li>a <strong>Recovery Phrase</strong> so that you can access your new Wallet once the mainnet is live and in the future in-case you need to restore access to your Wallet</li>
+                        <li>a <strong>Public Key</strong> that will be used to send your Particl tokens to</li>
+                        <li>a <strong>Recovery Phrase</strong> so that you can access your new Wallet once the mainnet is live and in the future in case you need to restore access to your Wallet</li>
                         <li>and ideally a <strong>Passphrase</strong> to secure your Recovery Phrase</li>
                     </ul>
                     <p>
@@ -422,7 +426,7 @@ ul li { margin: 0.4rem 0; }
                         <li>the optional <strong>Passphrase</strong></li>
                     </ul>
                     <p>
-                        If you forgot something, now it's a good time to go back and save all the important information. If you think you made a mistake somewhere, don't worry &ndash; you can start over as many times as you want.
+                        If you forgot something, now is a good time to go back and save all the important information. If you think you made a mistake somewhere, don't worry &ndash; you can start over as many times as you want.
                     </p>
                     <p>
                         In case you need some help, our Particl Team and Community will be glad to help! Come and join us on <a href="https://reddit.com/r/particl">Reddit</a>, <a href="https://particl.slack.com/">Slack</a> (<a href="http://slack.particl.io/">get invite here</a>) or <a href="https://riot.im/app/#/room/#particl:matrix.org">Riot</a>.
